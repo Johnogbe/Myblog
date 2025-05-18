@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OTP Input</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f9;
+    }
+
+    .otp-container {
+      text-align: center;
+    }
+
+    .otp-container h2 {
+      margin-bottom: 1rem;
+      color: #333;
+    }
+
+    .otp-inputs {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .otp-inputs input {
+      width: 3rem;
+      height: 3rem;
+      font-size: 1.5rem;
+      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      outline: none;
+      background-color: #fff;
+      transition: border-color 0.3s;
+    }
+
+    .otp-inputs input:focus {
+      border-color: #007bff;
+    }
+
+    .submit-btn {
+      margin-top: 1rem;
+      padding: 0.5rem 1.5rem;
+      font-size: 1rem;
+      color: #fff;
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .submit-btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="otp-container">
+    <h2>Enter OTP</h2>
+    <div class="otp-inputs">
+      <input type="text" maxlength="1" oninput="moveFocus(event, 0)" />
+      <input type="text" maxlength="1" oninput="moveFocus(event, 1)" />
+      <input type="text" maxlength="1" oninput="moveFocus(event, 2)" />
+      <input type="text" maxlength="1" oninput="moveFocus(event, 3)" />
+      <input type="text" maxlength="1" oninput="moveFocus(event, 4)" />
+      <input type="text" maxlength="1" oninput="moveFocus(event, 5)" />
+    </div>
+    <button class="submit-btn" onclick="submitOTP()">Submit</button>
+  </div>
+
+  <script>
+    function moveFocus(event, index) {
+      const inputs = document.querySelectorAll('.otp-inputs input');
+      if (event.target.value.length == 1 && index < inputs.length - 1) {
+        inputs[index + 1].focus();
+      } else if (event.key === 'Backspace' && index > 0) {
+        inputs[index - 1].focus();
+      }
+    }
+
+    function submitOTP() {
+      const inputs = document.querySelectorAll('.otp-inputs input');
+      const otp = Array.from(inputs).map(input => input.value).join('');
+      if (otp.length === 6) {
+        alert(`OTP Submitted: ${otp}`);
+      } else {
+        alert('Please enter all 6 digits of the OTP.');
+      }
+    }
+  </script>
+</body>
+
+</html>
